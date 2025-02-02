@@ -13,6 +13,7 @@ const CreateTeacher = () => {
     qualification: "",
     subject: "",
     categories: "",
+    teacherId:"",
     gender: "",
     age: "",
     salary: "",
@@ -67,7 +68,7 @@ const CreateTeacher = () => {
     //   experience: "",
     // });
       } else {
-        console.error("Failed to add student");
+        console.error("Failed to add Teacher");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -249,6 +250,20 @@ const CreateTeacher = () => {
               />
             </div>
             <div>
+            <div>
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="degree">
+               TeacherId
+              </label>
+              <input
+                type="text"
+                id="teacherId"
+                name="teacher"
+                value={formData.teacherId}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="degree">
                 Degree
               </label>

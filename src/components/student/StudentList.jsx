@@ -97,7 +97,7 @@ const StudentList = () => {
                       <tr
                         key={student.id}
                         className="hover:bg-gray-50 text-center"
-                        onClick={() => toggleStudentDetails(student._id)}
+                        onClick={() => toggleStudentDetails(student.registerId)}
                       >
                         <td className="px-4 py-2 border border-gray-200">
                           {index + 1}
@@ -113,7 +113,7 @@ const StudentList = () => {
                           {student.semester}
                         </td>
                         <td className="px-4 py-2 border border-gray-200">
-                          {student.studentId}
+                          {student.registerId}
                         </td>
                         <td className="px-4 py-2 border border-gray-200">
                           {student.studentId}

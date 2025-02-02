@@ -60,7 +60,7 @@ function App() {
       {authData?.data?.role === "student" && <StudentHeader />}
       <div className="flex min-h-screen bg-gray-100">
         {/* Show Sidebar only if authenticated as admin */}
-        {authData?.data?.role === "admin" && <Sidebar />}
+        {authData?.data?.role === "admin" || authData?.data?.role === "teacher"   && <Sidebar />}
 
         <div
           className={`${

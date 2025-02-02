@@ -1,8 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-
+import {useDispatch, useSelector} from "react-redux"
 const StudentProfile = () => {
+  const {authData} = useSelector((state)=>state.auth)
+  const dispatch = useDispatch()
+   useEffect(()=>{
+    const checkStudent = async ()=>{
+     await dispatch()
+    }
+   })
+  console.log(authData)
     const navigate = useNavigate()
   return (
     <div className="min-h-screen bg-gray-100">

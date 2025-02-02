@@ -12,16 +12,18 @@ const UnitMarks = () => {
     }, [dispatch]);
    
   const {studentData,loading ,error} = useSelector((state)=>state.student)
-  console.log(studentData)
-  const filterStudent = studentData?.studentList?.filter((student)=>student._id == studentId)
-  console.log(filterStudent)
+ 
+  const filterStudent = studentData?.studentList?.filter((student)=>student.registerId == studentId)
+  if(!filterStudent){
+    return <div>Loading data</div>
+  }
   const [formData, setFormData] = useState({
     schoolName:"City Group Of Management", // you can change college Name 
     boardName: "State Board of Education",
-    studentName:"afzal",
-    studentID:"1222",
-    rollNumber:"*****",
-    defaultStudentId:studentId,
+    studentName:filterStudent[0]?.fullName,
+    registerId:filterStudent[0]?.registerId,
+   studentEmail:filterStudent[0]?.studentEmail,
+   
     subjects: [
       {
         name: "Fundamental",
@@ -150,10 +152,10 @@ if(loading){
             <strong>Student Name:</strong> {formData.studentName}
           </p>
           <p>
-            <strong>Student ID:</strong> {formData.defaultStudentId}
+            <strong>Student ID:</strong> {formData.registerId}
           </p>
           <p>
-            <strong>Roll Number:</strong> {formData.rollNumber}
+            <strong>Email:</strong> {formData.studentEmail}
           </p>
         </div>
 

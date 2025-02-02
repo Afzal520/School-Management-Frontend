@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const StudentRegister = () => {
-  const [email, setEmail] = useState("");
+  const [mobile, setmobile] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [fullName, setfullName] = useState("");
+  const [registerId, setresgisterId] = useState("");
   const [role, setRole] = useState("");
   const navigate = useNavigate();
   const handleOption = (e) => {
@@ -19,9 +20,10 @@ const StudentRegister = () => {
     e.preventDefault();
 
     const loginData = {
-      email,
       password,
       fullName,
+      mobile,
+      registerId,
       role,
     };
 
@@ -43,7 +45,6 @@ const StudentRegister = () => {
         const errorData = await response.json();
         setError(errorData.message || "Register failed");
       }
-     
     } catch (error) {
       console.error("Error:", error);
       setError("An error occurred. Please try again.");
@@ -53,12 +54,13 @@ const StudentRegister = () => {
   return (
     <div className="flex justify-center  sm:items-center h-screen bg-gray-100">
       <div className="bg-white p-2 sm:p-8 rounded shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Student Register</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">
+          Student Register
+        </h2>
         <div className="flex justify-end">
           <select onChange={handleOption} className="border-1" name="" id="">
             <option value="">Choose Role</option>
             <option value="student">Student</option>
-           
           </select>
         </div>
         {error && <p className="text-red-500 mb-4">{error}</p>}
@@ -77,31 +79,48 @@ const StudentRegister = () => {
               required
             />
           </div>
+          <div className="flex gap-2">
+            <div>
+              <label htmlFor="password" className="block text-gray-700">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-3 py-2 border rounded"
+                placeholder="Enter your password"
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="studentId" className="block text-gray-700">
+                StudentId
+              </label>
+              <input
+                type="text"
+                id="resgister"
+                value={registerId}
+                onChange={(e) => setresgisterId(e.target.value)}
+                className="w-full px-3 py-2 border rounded"
+                placeholder="Enter your password"
+                required
+              />
+            </div>
+          </div>
+
           <div>
             <label htmlFor="email" className="block text-gray-700">
-              Email
+              Contact
             </label>
             <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              id="mobile"
+              value={mobile}
+              onChange={(e) => setmobile(e.target.value)}
               className="w-full px-3 py-2 border rounded"
-              placeholder="Enter your email"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="password" className="block text-gray-700">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 border rounded"
-              placeholder="Enter your password"
+              placeholder="Enter your Contact"
               required
             />
           </div>

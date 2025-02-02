@@ -7,7 +7,7 @@ const CreateStudent = () => {
     semester: "",
     course: "",
     subject: "",
-    studentId: "",
+    studentEmail: "",
     gender: "",
     dob: "",
     fee: "",
@@ -47,6 +47,7 @@ const CreateStudent = () => {
           course: "",
           subject: "",
           aadharCard: "",
+          studentEmail:"",
           gender: "",
           age: "",
           fee: "",
@@ -148,13 +149,13 @@ const CreateStudent = () => {
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="aadharCard"
               >
-                studentId
+              email
               </label>
               <input
                 type="text"
-                id="studentId"
-                name="studentId"
-                value={formData.studentId}
+                id="studentEmail"
+                name="studentEmail"
+                value={formData.studentEmail}
                 onChange={handleChange}
                 className="w-full sm:px-3 sm:py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
