@@ -37,7 +37,7 @@ const CreateStudent = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/register/stud", {
+      const response = await fetch("http://localhost:5000/api/student/createstudent", {
         method: "POST",
         body: form,
       });

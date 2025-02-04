@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import UnitMarks from "./UnitMarks";
-import EditStudent from "../../components/student/EditStudent";
+import EditStudent from "./EditStudent";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { fetchStudents } from "../../feature/studentSlice";
 const StudentDetails = ({ closeStudentDetails }) => {
@@ -51,12 +51,12 @@ const StudentDetails = ({ closeStudentDetails }) => {
     navigate(`/student/unitmark?id=${id}`); // Navigate to the details page with the ID
   };
 
-  const toggleEditStudent = () => {
-    settoggleeditForm(true);
+  const toggleEditStudent = (id) => {
+    console.log(id)
+   setsearchParams(id)
+    navigate(`/students/edit?Id=${id}`);
   };
-  if (toggleeditForm) {
-    return <EditStudent studentId={studentId} />;
-  }
+ 
   return (
     <div className="min-h-screen bg-gray-100 py-8">
       <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
@@ -142,7 +142,7 @@ const StudentDetails = ({ closeStudentDetails }) => {
           <div className="p-6 border-t border-gray-200 flex justify-end space-x-4">
             <button
               className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              onClick={toggleEditStudent}
+              onClick={()=>toggleEditStudent(studentId)}
             >
               Edit Profile
             </button>

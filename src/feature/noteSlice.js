@@ -4,9 +4,9 @@ const initialState = {
     noteData: [],
     error: null
 }
-
+const BASE_API_URL=(import.meta.env.VITE_API_URL);
 export const fetchNotes = createAsyncThunk("/fetch/notes", async () => {
-    const response = await fetch("http://localhost:5000/post/fetchpdf")
+    const response = await fetch(`${BASE_API_URL}/post/fetchpdf`)
     const result = await response.json()
      return result
 })

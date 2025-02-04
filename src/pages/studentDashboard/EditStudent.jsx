@@ -1,19 +1,24 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { editStudent } from "../../feature/studentSlice";
-const EditStudent = ({ studentId }) => {
-  console.log(studentId);
+import { FaLongArrowAltLeft } from "react-icons/fa";
+import { useSearchParams } from "react-router-dom";
+const EditStudent = () => {
+  const [seacrchParams, setId] =useSearchParams()
+  const studentId =seacrchParams.get("Id")
+  // console.log(studentId,"id here");
   const [students, setStudents] = useState([]);
   const [formData, setFormData] = useState({
     fullName: "",
     semester: "",
     course: "",
     subject: "",
-    aadharCard: "",
+    studentEmail: "",
+    contact: "",
     gender: "",
-    age: "",
+    dob: "",
     fee: "",
-    profilePhoto: null,
+   
   });
   const dispatch = useDispatch();
   const handleChange = (e) => {
@@ -34,13 +39,18 @@ const EditStudent = ({ studentId }) => {
   return (
     <div className="min-h-screen bg-gray-100 p-2 sm:p-6">
       <header className="bg-blue-600 text-white p-4 rounded mb-6">
-        <h1 className="text-xl sm:text-center font-bold">
-          Update Student Details
+        <h1 className="text-xl flex gap-2 sm:text-center font-bold">
+          <FaLongArrowAltLeft
+            className="text-4xl cursor-pointer"
+            onClick={() => navigate(-1)}
+          />{" "}
+          Edit Student Details
         </h1>
       </header>
       <div className="max-w-2xl mx-auto bg-white p-2 sm:p-8 rounded shadow-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Add Student</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
+          
           <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-4">
             <div>
               <label
@@ -62,15 +72,15 @@ const EditStudent = ({ studentId }) => {
             <div>
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="class"
+                htmlFor="aadharCard"
               >
-                Semester
+                email
               </label>
               <input
                 type="text"
-                id="class"
-                name="semester"
-                value={formData.semester}
+                id="studentEmail"
+                name="studentEmail"
+                value={formData.studentEmail}
                 onChange={handleChange}
                 className="w-full sm:px-3 sm:py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
@@ -112,20 +122,18 @@ const EditStudent = ({ studentId }) => {
                 required
               />
             </div>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="aadharCard"
+                htmlFor="Contact"
               >
-                Aadhar Card
+                Contact
               </label>
               <input
                 type="text"
-                id="aadharCard"
-                name="aadharCard"
-                value={formData.aadharCard}
+                id="contact"
+                name="contact"
+                value={formData.contact}
                 onChange={handleChange}
                 className="w-full sm:px-3 sm:py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
@@ -134,34 +142,35 @@ const EditStudent = ({ studentId }) => {
             <div>
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="gender"
+                htmlFor="class"
               >
-                Gender
+                Semester
               </label>
               <input
                 type="text"
-                id="gender"
-                name="gender"
-                value={formData.gender}
+                id="class"
+                name="semester"
+                value={formData.semester}
                 onChange={handleChange}
                 className="w-full sm:px-3 sm:py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
             </div>
           </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="age"
               >
-                Age
+                DOB
               </label>
               <input
-                type="number"
-                id="age"
-                name="age"
-                value={formData.age}
+                type="text"
+                id="dob"
+                name="dob"
+                value={formData.dob}
                 onChange={handleChange}
                 className="w-full sm:px-3 sm:py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
@@ -188,18 +197,30 @@ const EditStudent = ({ studentId }) => {
           <div>
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="profilePhoto"
+              htmlFor="gender"
             >
-              Profile Photo
+              Gender
             </label>
-            <input
-              type="file"
-              id="profilePhoto"
-              name="profilePhoto"
-              accept="image/*"
-              onChange={handleFileChange}
-              className="w-full sm:px-3 sm:py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+            <div className="block">
+              <label>
+                <input
+                  type="radio"
+                  onChange={handleChange}
+                  name="gender"
+                  value="male"
+                />{" "}
+                Male
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  onChange={handleChange}
+                  name="gender"
+                  value="female"
+                />{" "}
+                Female
+              </label>
+            </div>
           </div>
           <button
             type="submit"

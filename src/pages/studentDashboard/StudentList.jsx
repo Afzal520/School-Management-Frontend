@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editStudent, fetchStudents } from "../../feature/studentSlice";
-import EditStudent from "../../components/student/EditStudent";
+import EditStudent from "./EditStudent";
 import { IoLocationOutline } from "react-icons/io5";
 import { FaQuoteLeft } from "react-icons/fa6";
 import StudentDetails from "./StudentDetails";

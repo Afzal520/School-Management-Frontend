@@ -32,6 +32,7 @@ import TeacherDetails from "./pages/teacherDashboard/TeacherDetails";
 import CreateTeacher from "./pages/teacherDashboard/TeacherCreate";
 import StudentDetails from "./pages/studentDashboard/StudentDetails";
 import CreateStudent from "./pages/studentDashboard/CreateStudent";
+import EditStudent from "./pages/studentDashboard/EditStudent";
 function App() {
   const dispatch = useDispatch();
   const { authData } = useSelector((state) => state.auth);
@@ -175,6 +176,14 @@ function App() {
                 element={
                   <ProtectedRoute allowedRoles={["admin", "teacher"]}>
                     <StudentDetails />
+                  </ProtectedRoute>
+                }
+              />
+                 <Route
+                path="/students/edit"
+                element={
+                  <ProtectedRoute allowedRoles={["admin", "teacher"]}>
+                    <EditStudent />
                   </ProtectedRoute>
                 }
               />

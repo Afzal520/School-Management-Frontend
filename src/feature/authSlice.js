@@ -27,9 +27,10 @@ const initialState = {
 //         return rejectWithValue(error.message);
 //     }
 // });
+const BASE_API_URL=(import.meta.env.VITE_API_URL);
 export const fetchAuth = createAsyncThunk("/get/auth", async ({ id }) => {
     try {
-        const response = await fetch(`http://localhost:5000/api/auth/get/auth/${id}`);
+        const response = await fetch(`${BASE_API_URL}/api/auth/get/auth/${id}`);
 
        console.log("fetch")
        

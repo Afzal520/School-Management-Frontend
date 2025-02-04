@@ -5,9 +5,9 @@ const initialState = {
     resultData: [],
     error: null
 }
-
+const BASE_API_URL=(import.meta.env.VITE_API_URL);
 export const fetchResult = createAsyncThunk("/get/result", async ({id}) => {
-    const response = await fetch(`http://localhost:5000/api/student/getmark/${id}`)
+    const response = await fetch(`${ BASE_API_URL}/api/student/getmark/${id}`)
     const result = await response.json()
     console.log(result)
      return result
