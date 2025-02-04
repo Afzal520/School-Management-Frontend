@@ -5,14 +5,15 @@ import EditStudent from "./EditStudent";
 import { IoLocationOutline } from "react-icons/io5";
 import { FaQuoteLeft } from "react-icons/fa6";
 import StudentDetails from "./StudentDetails";
+import { useNavigate, useSearchParams } from "react-router-dom";
 const StudentList = () => {
   const dispatch = useDispatch();
   const [editComponent, seteditComponent] = useState(false);
   const [toggleDetails, settoggleDetails] = useState(false);
-
+  const [searchParams,setSearchParams] = useSearchParams()
   const [searchQuery, setSearchQuery] = useState("");
   const [studentId, setstudentId] = useState("");
-
+  const navigate = useNavigate()
   useEffect(() => {
     dispatch(fetchStudents());
   }, [dispatch]);
@@ -31,25 +32,27 @@ const StudentList = () => {
     seteditComponent(true);
   };
   const toggleStudentDetails = (id) => {
-    setstudentId(id);
-    settoggleDetails(true);
+    setSearchParams(id)
+    navigate(`/students/detail?id=${id}`)
+    // setstudentId(id);
+    // settoggleDetails(true);
   };
   const closeStudentDetails = () => {
     settoggleDetails(false);
   };
-  if (toggleDetails) {
-    return (
-      <StudentDetails
-        studentId={studentId}
-        closeStudentDetails={closeStudentDetails}
-      />
-    );
-  }
+  // if (toggleDetails) {
+  //   return (
+  //     <StudentDetails
+  //       studentId={studentId}
+  //       closeStudentDetails={closeStudentDetails}
+  //     />
+  //   );
+  // }
 
   const filteredStudents = studentData?.studentList?.filter((student) =>
     student.fullName.toLowerCase().includes(searchQuery.toLowerCase())
   );
-  console.log(filteredStudents);
+
   return (
     <div className="min-h-screen bg-gray-100 p-4">
       <header className="bg-blue-600 text-white p-4 rounded mb-6">
@@ -97,7 +100,7 @@ const StudentList = () => {
                       <tr
                         key={student.id}
                         className="hover:bg-gray-50 text-center"
-                        onClick={() => toggleStudentDetails(student._id)}
+                        onClick={() => toggleStudentDetails(student.registerId)}
                       >
                         <td className="px-4 py-2 border border-gray-200">
                           {index + 1}
@@ -113,10 +116,10 @@ const StudentList = () => {
                           {student.semester}
                         </td>
                         <td className="px-4 py-2 border border-gray-200">
-                          {student.studentId}
+                          {student.registerId}
                         </td>
                         <td className="px-4 py-2 border border-gray-200">
-                          {student.studentId}
+                          {student.course}
                         </td>
                       </tr>
                     ))}

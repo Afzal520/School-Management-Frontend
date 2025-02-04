@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const TeacherRegister = () => {
-  const [email, setEmail] = useState("");
+const [registerId,setregisterId] = useState("")
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [mobile,setMobile] = useState("")
   const [fullName, setfullName] = useState("");
   const [role, setRole] = useState("");
   const navigate = useNavigate();
@@ -19,10 +20,11 @@ const TeacherRegister = () => {
     e.preventDefault();
 
     const loginData = {
-      email,
+      registerId,
       password,
       fullName,
       role,
+      mobile
     };
 
     try {
@@ -78,20 +80,7 @@ const TeacherRegister = () => {
               required
             />
           </div>
-          <div>
-            <label htmlFor="email" className="block text-gray-700">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 border rounded"
-              placeholder="Enter your email"
-              required
-            />
-          </div>
+          <div className="flex gap-2">
           <div>
             <label htmlFor="password" className="block text-gray-700">
               Password
@@ -103,6 +92,35 @@ const TeacherRegister = () => {
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-3 py-2 border rounded"
               placeholder="Enter your password"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="email" className="block text-gray-700">
+            TeacherId
+            </label>
+            <input
+              type="text"
+              id="teacherId"
+              value={registerId}
+              onChange={(e) => setregisterId(e.target.value)}
+              className="w-full px-3 py-2 border rounded"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+          </div>
+          <div>
+            <label htmlFor="email" className="block text-gray-700">
+           Contact
+            </label>
+            <input
+              type="text"
+              id="mobile"
+              value={mobile}
+              onChange={(e) => setMobile(e.target.value)}
+              className="w-full px-3 py-2 border rounded"
+              placeholder="Enter your email"
               required
             />
           </div>

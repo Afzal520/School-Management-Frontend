@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAuth } from "../feature/authSlice";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [registerId, setresgisterId] = useState("");
+  const [contact,setcontact]= useState("")
+  const [fullName,setfullName] = useState("")
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const dispatch = useDispatch();
@@ -16,8 +18,10 @@ const Login = () => {
     setError(""); // Clear previous errors
 
     const loginData = {
-      email,
+    registerId,
       password,
+      contact,
+
     };
 
     try {
@@ -55,7 +59,7 @@ const Login = () => {
       if (result.user.role === "student") {
         navigate("/studentlayout");
       } else if (result.user.role === "teacher") {
-        navigate("/teachers");
+        navigate("/");
       } else if (result.user.role === "admin") {
         navigate("/");
       } else {
@@ -78,15 +82,32 @@ const Login = () => {
               htmlFor="email"
               className="block text-sm font-medium text-gray-700"
             >
-              Email
+              Contact
             </label>
             <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              id="contact"
+              value={contact}
+              onChange={(e) => setcontact(e.target.value)}
               className="w-full px-3 py-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter your email"
+              placeholder="Contact"
+              required
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
+              StudentId
+            </label>
+            <input
+              type="text"
+              id="studentId"
+              value={registerId}
+              onChange={(e) => setresgisterId(e.target.value)}
+              className="w-full px-3 py-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter your StudentId"
               required
             />
           </div>

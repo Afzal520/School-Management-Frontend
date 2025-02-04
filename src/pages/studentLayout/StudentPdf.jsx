@@ -1,13 +1,28 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { fetchNotes } from "../../feature/noteSlice";
 const StudentPdf = () => {
+  const dispatch = useDispatch();
+  const [pdfData, setPdfData] = useState([]);
+  const [pdfUrl, setPdfUrl] = useState("");
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await dispatch(fetchNotes());
+      if (response.payload.fetchPdf) {
+        setPdfData(response.payload.fetchPdf);
+      }
+    };
+    fetchData();
+  }, [dispatch, fetchNotes]);
+
+ 
   return (
     <div className="min-h-screen bg-gray-100 ">
       <header className="bg-blue-600 text-white p-4 rounded mb-6">
         <h1 className="text-xl font-bold text-center">Pdf List</h1>
       </header>
       <div className="bg-white p-1 rounded shadow-md overflow-x-auto">
-        <h2 className="text-2xl font-bold mb-4">Students</h2>
+        <h2 className="text-2xl font-bold mb-4">Notes</h2>
         <input
           type="text"
           placeholder="Search by name"
@@ -21,7 +36,7 @@ const StudentPdf = () => {
             {/* Table Section */}
             <div className="p-4">
               <h2 className="text-2xl font-bold text-gray-800 mb-4">
-                Student List
+                Note List
               </h2>
               <div className="overflow-x-auto">
                 <table className="min-w-full bg-white border border-gray-200">
@@ -30,12 +45,10 @@ const StudentPdf = () => {
                       <th className=" py-2 border border-gray-200">S.N</th>
                       <th className=" py-2 border border-gray-200">Name</th>
 
-                      <th className=" py-2 border border-gray-200">
-                        Semester
-                      </th>
+                      <th className=" py-2 border border-gray-200">Semester</th>
 
                       <th className=" py-2 border border-gray-200">
-                       Department
+                        Department
                       </th>
                     </tr>
                   </thead>
@@ -46,19 +59,13 @@ const StudentPdf = () => {
                       className="hover:bg-gray-50 text-center"
                       // onClick={() => toggleStudentDetails(student._id)}
                     >
+                      <td className=" py-2 border border-gray-200">1</td>
                       <td className=" py-2 border border-gray-200">
-                        {/* {index + 1} */}
-                      </td>
-                      <td className=" py-2 border border-gray-200">
-                        {/* {student.fullName} */}
+                        Fundamental
                       </td>
 
-                      <td className=" py-2 border border-gray-200">
-                        {/* {student.studentId} */}
-                      </td>
-                      <td className=" py-2 border border-gray-200">
-                        {/* {student.studentId} */}
-                      </td>
+                      <td className=" py-2 border border-gray-200">bca</td>
+                      <td className=" py-2 border border-gray-200">1</td>
                     </tr>
                     {/* ))} */}
                   </tbody>

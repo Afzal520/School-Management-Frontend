@@ -5,20 +5,22 @@ const initialState = {
     studentData: [],
     error: null,
 }
+const BASE_API_URL=(import.meta.env.VITE_API_URL);
+
+
 // fetch all student
 // const BASE_URL = process.env.REACT_APP_BASE_URL;
 export const fetchStudents = createAsyncThunk("student/fethstudents", async () => {
-    const response = await fetch(`http://localhost:5000/register/getstud`)
-    console.log("helloooo")
+    const response = await fetch(`${BASE_API_URL}/api/student/getstudent`)
+
     const data = await response.json()
     return data
 })
 // edit student details
 export const editStudent = createAsyncThunk("student/edit", async ({ id, formData }) => {
 
-    console.log(id)
-    console.log(formData)
-    const response = await fetch(`http://localhost:5000/register/edit/${id}`, {
+   
+    const response = await fetch(`${BASE_API_URL}/api/student/editstudent/${id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -29,7 +31,7 @@ export const editStudent = createAsyncThunk("student/edit", async ({ id, formDat
     return result
 })
 export const fetchAuthStudent = createAsyncThunk("/student/register", async () => {
-    const response = await fetch("http://localhost:5000/api/auth/register", {
+    const response = await fetch(`${ BASE_API_URL}/api/auth/register`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
