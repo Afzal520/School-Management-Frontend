@@ -13,7 +13,7 @@ import Students from "./pages/student/Students";
 import Courses from "./components/Courses";
 import Note from "./components/Note";
 import Login from "./pages/Login";
-import Teacher from "./pages/teacher/Teacher";
+import Teacher from "./pages/teacherDashboard/TeacherLayout";
 import Marks from "./pages/marks/Marks";
 import StudentRegister from "./pages/registeration/Student";
 import TeacherRegister from "./pages/registeration/Teacher";
@@ -22,12 +22,16 @@ import PageNotFound from "./pages/PageNotFound";
 import Unauthorized from "./pages/Unauthorized";
 import ProtectedRoute from "./components/protectRoute/ProtectedRoute";
 import { fetchAuth } from "./feature/authSlice";
-import UnitMarks from "./components/marks/UnitMarks";
+import UnitMarks from "./pages/studentDashboard/UnitMarks";
 import StudentProfile from "./pages/studentLayout/StudentProfile";
 import { useLocation } from "react-router-dom";
 import StudentHeader from "./components/studentComponent/StudentHeader";
 import StudentPdf from "./pages/studentLayout/StudentPdf";
 import StudentResult from "./pages/studentLayout/StudentResult";
+import TeacherDetails from "./pages/teacherDashboard/TeacherDetails";
+import CreateTeacher from "./pages/teacherDashboard/TeacherCreate";
+import StudentDetails from "./pages/studentDashboard/StudentDetails";
+import CreateStudent from "./pages/studentDashboard/CreateStudent";
 function App() {
   const dispatch = useDispatch();
   const { authData } = useSelector((state) => state.auth);
@@ -158,11 +162,43 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+               <Route
+                path="/students/create"
+                element={
+                  <ProtectedRoute allowedRoles={["admin", "teacher"]}>
+                    <CreateStudent />
+                  </ProtectedRoute>
+                }
+              />
+                <Route
+                path="/students/detail"
+                element={
+                  <ProtectedRoute allowedRoles={["admin", "teacher"]}>
+                    <StudentDetails />
+                  </ProtectedRoute>
+                }
+              />
               <Route
                 path="teachers"
                 element={
                   <ProtectedRoute allowedRoles={["admin", "teacher"]}>
                     <Teacher />
+                  </ProtectedRoute>
+                }
+              />
+               <Route
+                path="teachers/details"
+                element={
+                  <ProtectedRoute allowedRoles={["admin", "teacher"]}>
+                    <TeacherDetails />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/teacher/create"
+                element={
+                  <ProtectedRoute allowedRoles={["admin", "teacher"]}>
+                    <CreateTeacher />
                   </ProtectedRoute>
                 }
               />

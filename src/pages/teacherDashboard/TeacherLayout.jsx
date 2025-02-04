@@ -1,13 +1,17 @@
 import React, { useState } from "react";
-import CreateTeacher from "../../components/teacher/CreateTeacher";
-import TeacherList from "../../components/teacher/TeacherList";
+import CreateTeacher from "./TeacherCreate";
+
+import TeacherList from "./TeacherList";
+import { useNavigate } from "react-router-dom";
 
 const Teacher = () => {
   const [toggleForm, settoggleForm] = useState(false);
+
+  const navigate = useNavigate();
   const toggleTeacherForm = () => {
+    navigate(`/teacher/create`);
     settoggleForm(!toggleForm);
   };
-
   return (
     <div>
       <div className="flex justify-between p-4">

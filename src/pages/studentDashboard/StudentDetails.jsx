@@ -1,33 +1,51 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import UnitMarks from "../marks/UnitMarks";
-import EditStudent from "./EditStudent";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import UnitMarks from "./UnitMarks";
+import EditStudent from "../../components/student/EditStudent";
 import { useNavigate, useSearchParams } from "react-router-dom";
-const StudentDetails = ({ studentId, closeStudentDetails }) => {
-  console.log(closeStudentDetails);
+import { fetchStudents } from "../../feature/studentSlice";
+const StudentDetails = ({ closeStudentDetails }) => {
+
   const [toggleeditForm, settoggleeditForm] = useState(false);
   const [editComponent, seteditComponent] = useState(false);
   const [searchParams, setsearchParams] = useSearchParams();
   const { studentData, loading, error } = useSelector((state) => state.student);
-  console.log(studentData);
-  console.log(studentId);
+  const studentId = searchParams.get("id");
+
   const navigate = useNavigate();
   const [toggleMark, settoggleMarks] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const fetchData = async () => {
+      if (studentId) {
+        await dispatch(fetchStudents());
+
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, [dispatch]);
+  if (isLoading) {
+    return <div>Loading........</div>;
+  }
   const filteredStudent = studentData?.studentList?.filter(
     (student) => student.registerId == studentId
   );
-  console.log(filteredStudent[0].fullName);
+
+
   const student = {
     name: filteredStudent[0].fullName || null,
     registerId: filteredStudent[0].registerId || null,
-  studentEmail: filteredStudent[0].studentEmail || null,
+    studentEmail: filteredStudent[0].studentEmail || null,
     phone: filteredStudent[0].contact || null,
     address: filteredStudent[0].address || null,
     course: filteredStudent[0].course || null,
     semester: filteredStudent[0].semester || null,
     profileImage: filteredStudent[0].profilePhoto, // Placeholder image URL
   };
-  console.log(filteredStudent);
+
+  
   const handleChange = (id) => {
     setsearchParams({ id });
     navigate(`/student/unitmark?id=${id}`); // Navigate to the details page with the ID
@@ -65,12 +83,15 @@ const StudentDetails = ({ studentId, closeStudentDetails }) => {
                 <h2 className="text-2xl font-bold text-gray-800">
                   {student.name}
                 </h2>
-                <p className="text-gray-600">Student ID: {student.registerId}</p>
+                <p className="text-gray-600">
+                  Student ID: {student.registerId}
+                </p>
               </div>
 
               <div className="space-y-2">
                 <p className="text-gray-700">
-                  <span className="font-semibold">Email:</span> {student.studentEmail}
+                  <span className="font-semibold">Email:</span>{" "}
+                  {student.studentEmail}
                 </p>
                 <p className="text-gray-700">
                   <span className="font-semibold">Phone:</span> {student.phone}

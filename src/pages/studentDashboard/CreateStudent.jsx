@@ -1,13 +1,17 @@
 import React, { useState } from "react";
+import { FaLongArrowAltLeft } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const CreateStudent = () => {
   const [students, setStudents] = useState([]);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: "",
     semester: "",
     course: "",
     subject: "",
     studentEmail: "",
+    contact: "",
     gender: "",
     dob: "",
     fee: "",
@@ -47,7 +51,7 @@ const CreateStudent = () => {
           course: "",
           subject: "",
           aadharCard: "",
-          studentEmail:"",
+          studentEmail: "",
           gender: "",
           age: "",
           fee: "",
@@ -64,13 +68,34 @@ const CreateStudent = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-2 sm:p-6">
       <header className="bg-blue-600 text-white p-4 rounded mb-6">
-        <h1 className="text-xl sm:text-center font-bold">
-         Student Registration Form 
+        <h1 className="text-xl flex gap-2 sm:text-center font-bold">
+          <FaLongArrowAltLeft
+            className="text-4xl cursor-pointer"
+            onClick={() => navigate(-1)}
+          />{" "}
+          Student Registration Form
         </h1>
       </header>
       <div className="max-w-2xl mx-auto bg-white p-2 sm:p-8 rounded shadow-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Add Student</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="profilePhoto"
+            >
+              Profile Photo
+            </label>
+            <input
+              type="file"
+              id="profilePhoto"
+              name="profilePhoto"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="w-full sm:px-3 sm:py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-4">
             <div>
               <label
@@ -92,15 +117,15 @@ const CreateStudent = () => {
             <div>
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="class"
+                htmlFor="aadharCard"
               >
-                Semester
+                email
               </label>
               <input
                 type="text"
-                id="class"
-                name="semester"
-                value={formData.semester}
+                id="studentEmail"
+                name="studentEmail"
+                value={formData.studentEmail}
                 onChange={handleChange}
                 className="w-full sm:px-3 sm:py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
@@ -142,20 +167,18 @@ const CreateStudent = () => {
                 required
               />
             </div>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="aadharCard"
+                htmlFor="Contact"
               >
-              email
+                Contact
               </label>
               <input
                 type="text"
-                id="studentEmail"
-                name="studentEmail"
-                value={formData.studentEmail}
+                id="contact"
+                name="contact"
+                value={formData.contact}
                 onChange={handleChange}
                 className="w-full sm:px-3 sm:py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
@@ -164,21 +187,22 @@ const CreateStudent = () => {
             <div>
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="gender"
+                htmlFor="class"
               >
-                Gender
+                Semester
               </label>
               <input
                 type="text"
-                id="gender"
-                name="gender"
-                value={formData.gender}
+                id="class"
+                name="semester"
+                value={formData.semester}
                 onChange={handleChange}
                 className="w-full sm:px-3 sm:py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
             </div>
           </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label
@@ -218,19 +242,18 @@ const CreateStudent = () => {
           <div>
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="profilePhoto"
+              htmlFor="gender"
             >
-              Profile Photo
+              Gender
             </label>
-            <input
-              type="file"
-              id="profilePhoto"
-              name="profilePhoto"
-              accept="image/*"
-              onChange={handleFileChange}
-              className="w-full sm:px-3 sm:py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
+            <div className="block">
+            <label>
+              <input type="radio" onChange={handleChange} name="gender" value="male" /> Male
+            </label>
+            <label>
+              <input type="radio" onChange={handleChange} name="gender" value="female" /> Female
+            </label>
+            </div>
           </div>
           <button
             type="submit"

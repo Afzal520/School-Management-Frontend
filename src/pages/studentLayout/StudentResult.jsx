@@ -8,13 +8,13 @@ const StudentResult = () => {
   const [provideId, setProvideId] = useState("");
   const [foundResult, setFoundResult] = useState(false);
   const dispatch = useDispatch();
-  console.log(PracticalheetRef);
+  
   const { resultData, loading, error } = useSelector((state) => state.result);
-  console.log("Result Data:", resultData);
+  
 
   const handlePrint = useReactToPrint({
     content: () => {
-      console.log("Checking PracticalheetRef:", PracticalheetRef.current);
+
       if (!PracticalheetRef.current) {
         alert(
           "Error: Nothing to print! Please ensure the marksheet is visible."
@@ -26,8 +26,7 @@ const StudentResult = () => {
     documentTitle: `Marksheet_${
       resultData?.GetStudentResult?.studentName || "Student"
     }`,
-    onBeforePrint: () => console.log("Printing started..."),
-    onAfterPrint: () => console.log("Printing complete!"),
+
   });
 
   const handleSubmit = async (e) => {

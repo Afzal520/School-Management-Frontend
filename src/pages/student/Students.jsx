@@ -1,17 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import CreateStudent from "../../components/student/CreateStudent";
+import { Link, useNavigate } from "react-router-dom";
+import CreateStudent from "../studentDashboard/CreateStudent";
 import { useState } from "react";
-import StudentList from "../../components/student/StudentList";
+import StudentList from "../studentDashboard/StudentList";
 
 const Students = () => {
   const [studentForm, setstudentForm] = useState(false);
-  const toggleCreate = () => {
-    setstudentForm(!studentForm);
+  const navigate = useNavigate()
+  const toggleCreateStudent = () => {
+   navigate("/students/create")
   };
   return (
     <div>
-      <div className="flex justify-between p-3" onClick={toggleCreate}>
+      <div className="flex justify-between p-3" onClick={toggleCreateStudent}>
         <div className="">
           <h1 className="font-extrabold">
             {studentForm ? "Student management system" : "Students List"}
@@ -23,7 +24,7 @@ const Students = () => {
           </button>
         </div>
       </div>
-      {studentForm ? <CreateStudent /> : <StudentList />}
+      { <StudentList />}
     </div>
   );
 };

@@ -1,19 +1,29 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-const TeacherDetails = ({ settoggleDetails, teacherId }) => {
-
+import { useSearchParams } from "react-router-dom";
+import { fetchTeacher } from "../../feature/teacher";
+const TeacherDetails = ({ settoggleDetails }) => {
+  const [searchParams, setp] = useSearchParams();
+  const [isLoading, setIsLoading] = useState(true);
+  const [emailSubject, setEmailSubject] = useState("");
+  const [emailBody, setEmailBody] = useState("");
+  const [meetingDate, setMeetingDate] = useState("");
+  const [meetingTime, setMeetingTime] = useState("");
+  const [meetingPurpose, setMeetingPurpose] = useState("");
+  const teacherId = searchParams.get("id"); // Get ID from URL
   const { teacherData, loading, error } = useSelector((state) => state.teacher);
-
-//   useEffect(() => {
-//     if (teacherId) {
-//       dispatch(fetchTeacher(teacherId));
-//     }
-//   }, [dispatch, teacherId]);
- const closeTeacherDetails = ()=>{
-    settoggleDetails(false)
- }
-  if (loading) {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const checkAuth = async () => {
+      await dispatch(fetchTeacher());
+      setIsLoading(false); // Set loading to false after authentication check
+    };
+    checkAuth();
+  }, [dispatch]);
+  const closeTeacherDetails = () => {
+    settoggleDetails(false);
+  };
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 
@@ -21,27 +31,24 @@ const TeacherDetails = ({ settoggleDetails, teacherId }) => {
     return <div>Error: {error}</div>;
   }
 
-  const filteredDetails = teacherData?.teacherData?.filter((teacher)=>teacher._id == teacherId)
-  console.log(filteredDetails)
+  const filteredDetails = teacherData?.teacherData?.find(
+    (teacher) => teacher.registerId == teacherId
+  );
+ 
   const teacher = {
-    name: "Dr. Jane Smith",
-    teacherId: "T987654",
-    email: "jane.smith@example.com",
-    phone: "+1 (987) 654-3210",
+    name: `${filteredDetails.fullName || null} `,
+    teacherId: `${filteredDetails.registerId || null}`,
+    email: `${filteredDetails.teacherEmail || null}`,
+    phone: `${filteredDetails.contact || null}`,
     department: "Computer Science",
     designation: "Professor",
-    office: "Room 205, Building A",
-    profileImage: "https://via.placeholder.com/150", // Placeholder image URL
+    office: `${filteredDetails.address || null}`,
+    profileImage: `${filteredDetails.profilePhoto || filteredDetails.fullName}`,
   };
 
   // State for scheduling a meeting
-  const [meetingDate, setMeetingDate] = useState("");
-  const [meetingTime, setMeetingTime] = useState("");
-  const [meetingPurpose, setMeetingPurpose] = useState("");
 
   // State for sending an email
-  const [emailSubject, setEmailSubject] = useState("");
-  const [emailBody, setEmailBody] = useState("");
 
   // Handle meeting scheduling
   const handleScheduleMeeting = (e) => {
@@ -57,9 +64,7 @@ const TeacherDetails = ({ settoggleDetails, teacherId }) => {
   // Handle sending an email
   const handleSendEmail = (e) => {
     e.preventDefault();
-    alert(
-      `Email Sent!\nSubject: ${emailSubject}\nBody: ${emailBody}`
-    );
+    alert(`Email Sent!\nSubject: ${emailSubject}\nBody: ${emailBody}`);
     setEmailSubject("");
     setEmailBody("");
   };
@@ -101,13 +106,16 @@ const TeacherDetails = ({ settoggleDetails, teacherId }) => {
                   <span className="font-semibold">Phone:</span> {teacher.phone}
                 </p>
                 <p className="text-gray-700">
-                  <span className="font-semibold">Department:</span> {teacher.department}
+                  <span className="font-semibold">Department:</span>{" "}
+                  {teacher.department}
                 </p>
                 <p className="text-gray-700">
-                  <span className="font-semibold">Designation:</span> {teacher.designation}
+                  <span className="font-semibold">Designation:</span>{" "}
+                  {teacher.designation}
                 </p>
                 <p className="text-gray-700">
-                  <span className="font-semibold">Office:</span> {teacher.office}
+                  <span className="font-semibold">Office:</span>{" "}
+                  {teacher.office}
                 </p>
               </div>
             </div>
